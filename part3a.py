@@ -7,6 +7,8 @@ import googleapiclient.discovery
 from six.moves import input
 from pprint import pprint
 from googleapiclient import discovery
+from oauth2client.client import GoogleCredentials
+import google.auth
 import google.oauth2.service_account as service_account
 
 # [START list_instances]
