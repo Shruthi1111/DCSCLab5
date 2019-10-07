@@ -211,7 +211,7 @@ if __name__ == '__main__':
         pprint("allow-5000 is already there in the list.")
 
     
-    main(args.project_id, args.bucket_name, args.zone, args.name,args.name2)
+    main(args.project_id, args.bucket_name, args.zone, args.name)
     get_request = service.instances().get(project=project, zone=zone, instance=instance)
     get_response = get_request.execute()
     pprint(get_response['tags']['fingerprint'])
