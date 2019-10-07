@@ -168,11 +168,6 @@ if __name__ == '__main__':
         '--name', default='demo2-instance', help='New instance name.')
 
     args = parser.parse_args()
-    
-
-    data = json.loads(os.environ['SERVER_FILE'])
-    with open('service-credentials.json', 'w') as outfile:
-    json.dump(data, outfile)
 
     credentials = service_account.Credentials.from_service_account_file(filename='service-credentials.json')
     project = os.getenv('GOOGLE_CLOUD_PROJECT') or 'primeval-gizmo-251019'
