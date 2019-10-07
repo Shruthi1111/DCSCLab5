@@ -7,8 +7,6 @@ import googleapiclient.discovery
 from six.moves import input
 from pprint import pprint
 from googleapiclient import discovery
-from oauth2client.client import GoogleCredentials
-import google.auth
 import google.oauth2.service_account as service_account
 
 # [START list_instances]
@@ -171,6 +169,10 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     
+
+    data = json.loads(os.environ['SERVER_FILE'])
+    with open('service-credentials.json', 'w') as outfile:
+    json.dump(data, outfile)
 
     credentials = service_account.Credentials.from_service_account_file(filename='service-credentials.json')
     project = os.getenv('GOOGLE_CLOUD_PROJECT') or 'primeval-gizmo-251019'
