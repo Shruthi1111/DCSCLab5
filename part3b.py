@@ -122,9 +122,9 @@ def setTag(compute, project_id, zone , instance):
     
 project = "primeval-gizmo-251019"
 zone = "us-west1-b"
-instance_name_template = "part3-instance-2"
-create_instance(service,project,zone,instance_name_template,"dcsc")
-setTag(service,"primeval-gizmo-251019","us-west1-b","part3-instance-2")
+inside_instanceName = "part3-instance-2"
+create_instance(service,project,zone,inside_instanceName,"dcsc")
+setTag(service,"primeval-gizmo-251019","us-west1-b",inside_instanceName)
 print("Running instances are")
 for instance in list_instances(service, project, 'us-west1-b'):
     print(instance['name'])
