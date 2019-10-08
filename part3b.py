@@ -7,9 +7,8 @@ from pprint import pprint
 import googleapiclient.discovery
 import google.auth
 import google.oauth2.service_account as service_account
-#
-# Use Google Service Account - See https://google-auth.readthedocs.io/en/latest/reference/google.oauth2.service_account.html#module-google.oauth2.service_account
-#
+
+#[Using the service credentials json file as credential]
 project = os.getenv('GOOGLE_CLOUD_PROJECT') or 'primeval-gizmo-251019'
 credentials = service_account.Credentials.from_service_account_file(filename='service-credentials.json')
 service = googleapiclient.discovery.build('compute', 'v1', credentials=credentials)
@@ -99,14 +98,14 @@ def create_instance(compute, project, zone, name, bucket):
         zone=zone,
         body=config).execute()
 # [END create_instance]
-#
-# Stub code - just lists all instances
-#
+
+# [List the instances]
 def list_instances(compute, project, zone):
     result = compute.instances().list(project=project, zone=zone).execute()
     return result['items'] if 'items' in result else None
 
-def set_tag(compute, project_id, zone , instance):
+# [Set the Tag]
+def setTag(compute, project_id, zone , instance):
     # Sets the http and https tags to allow traffic
     data = compute.instances().get(project=project_id,zone=zone,instance=instance).execute()
     tags = data ['tags']
@@ -121,14 +120,12 @@ def set_tag(compute, project_id, zone , instance):
     }   
     # Waits for the operation to complete.
     request = compute.instances().setTags(project=project_id, zone=zone, instance=instance, body=body).execute()
-    #response = request.rensponse()
-    #print(response)
-    #wait_to_complete.wait(compute, project_id, zone, request['name'], 'enabling http and https traffic for ' + instance)
+    
 project = "primeval-gizmo-251019"
 zone = "us-west1-b"
-instance_name_template = "inside-instance"
-create_instance(service,project,zone,instance_name_template,"dcsc")
-set_tag(service,"primeval-gizmo-251019","us-west1-b","inside-instance")
-print("Following instances are running")
+inside_instanceName = "part3-instance-2"
+create_instance(service,project,zone,inside_instanceName,"dcsc")
+setTag(service,"primeval-gizmo-251019","us-west1-b",inside_instanceName)
+print("Running instances are")
 for instance in list_instances(service, project, 'us-west1-b'):
     print(instance['name'])
