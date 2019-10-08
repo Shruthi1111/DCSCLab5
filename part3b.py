@@ -104,7 +104,6 @@ def list_instances(compute, project, zone):
     result = compute.instances().list(project=project, zone=zone).execute()
     return result['items'] if 'items' in result else None
 
-# [Set the Tag]
 def setTag(compute, project_id, zone , instance):
     # Sets the http and https tags to allow traffic
     data = compute.instances().get(project=project_id,zone=zone,instance=instance).execute()
@@ -123,9 +122,9 @@ def setTag(compute, project_id, zone , instance):
     
 project = "primeval-gizmo-251019"
 zone = "us-west1-b"
-inside_instanceName = "part3-instance-2"
-create_instance(service,project,zone,inside_instanceName,"dcsc")
-setTag(service,"primeval-gizmo-251019","us-west1-b",inside_instanceName)
+instance_name_template = "part3-instance-2"
+create_instance(service,project,zone,instance_name_template,"dcsc")
+setTag(service,"primeval-gizmo-251019","us-west1-b","part3-instance-2")
 print("Running instances are")
 for instance in list_instances(service, project, 'us-west1-b'):
     print(instance['name'])
